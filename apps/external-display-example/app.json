@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "external-display-example",
+    "slug": "external-display-example",
+    "entryPoint": "./src/App.tsx",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "externaldisplay",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.externaldisplay"
+    },
+    "android": {
+      "package": "com.externaldisplay",
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

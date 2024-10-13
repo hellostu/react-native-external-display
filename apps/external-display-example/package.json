@@ -1,0 +1,25 @@
+{
+  "name": "external-display-example",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
+  },
+  "main": "./index.tsx",
+  "dependencies": {
+    "expo": "~51.0.28",
+    "expo-system-ui": "~3.0.7",
+    "react": "18.2.0",
+    "react-native": "0.74.5",
+    "react-native-external-display": "0.6.6",
+    "react-native-gesture-handler": "^2.20.0",
+    "react-native-webview": "^13.12.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.45",
+    "typescript": "~5.3.3"
+  },
+  "private": true
+}
