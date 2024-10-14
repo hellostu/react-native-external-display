@@ -3,7 +3,7 @@ type SceneTypes = {
   CREATED_SCENE: '@RNExternalDisplay_createdScene'
 }
 
-const SceneManager: {
+declare const SceneManager: {
   types: SceneTypes
   isAvailable: () => boolean
   requestScene: (options: any) => void

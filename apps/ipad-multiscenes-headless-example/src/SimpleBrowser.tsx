@@ -1,5 +1,3 @@
-// @flow
-
 import React, { useState, useRef } from 'react'
 import { View, Text, TextInput, Button } from 'react-native'
 import WebView from 'react-native-webview'
@@ -14,9 +12,9 @@ const defaultURLs = [
 ]
 
 type Props = {
-  screen: {},
-  screenId: string,
-  screenIndex: number,
+  screen: {}
+  screenId: string
+  screenIndex: number
 }
 
 export default function SimpleBrowser(props: Props) {

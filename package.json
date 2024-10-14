@@ -2,10 +2,10 @@
   "name": "rn-external-display",
   "private": true,
   "workspaces": [
-    "packages/react-native-external-display",
-    "apps/external-display-example"
+    "packages/*",
+    "apps/*"
   ],
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.5.0",
   "scripts": {
     "start": "cd apps/external-display-example && yarn start"
   }
