@@ -65,22 +65,20 @@ jobs:
         run: |
           yarn expo prebuild --platform ios
 
-      # Install CocoaPods dependencies for iOS
-      - name: Install CocoaPods dependencies
-        working-directory: apps/external-display-example/ios
-        run: |
-          pod install
+      # Install xcpretty for better build output
+      - name: Install xcpretty
+        run: gem install xcpretty
 
-      # Build the iOS app using Xcode (Debug)
-      - name: Build iOS App (Debug)
+      # Build the iOS app using Xcode (with xcpretty)
+      - name: Build iOS App (Debug) with xcpretty
         working-directory: apps/external-display-example/ios
         run: |
-          xcodebuild \
+          set -o pipefail && xcodebuild \
             -workspace externaldisplayexample.xcworkspace \
             -scheme externaldisplayexample \
             -configuration Debug \
             -sdk iphonesimulator \
-            -derivedDataPath build
+            -derivedDataPath build | xcpretty --no-color
 
   build-android:
     runs-on: ubuntu-latest
