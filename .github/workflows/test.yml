@@ -28,16 +28,25 @@ jobs:
           yarn
           yarn lint
 
-  test-ios-newarch:
-    runs-on: macOS-latest
+  build-ios:
+    runs-on: macos-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4.0.3
+      # Checkout the code
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4.0.3
         with:
           node-version: 18.x
+
+      # Cache Yarn dependencies to speed up the build
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
+
       - uses: actions/cache@v4
         id: yarn-cache
         with:
@@ -45,26 +54,33 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: Cache pods
-        uses: actions/cache@v4
-        with:
-          path: |
-            packages/RNExternalDisplayExample/ios/Pods
-            packages/RNExternalDisplayExample/ios/build
-          key: ${{ runner.os }}-pods-newarch-${{ hashFiles('**/packages/RNExternalDisplayExample/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-newarch-
-      - name: Install deps
+
+      # Install dependencies
+      - name: Install dependencies
         run: yarn
-      - name: Build RNExternalDisplayExample
-        env:
-          RCT_NEW_ARCH_ENABLED: 1
+
+      # Prebuild the iOS folder for Expo
+      - name: Prebuild iOS with Expo
+        working-directory: apps/external-display-example
         run: |
-          cd packages/RNExternalDisplayExample/ios
-          pod repo update
+          yarn expo prebuild --platform ios
+
+      # Install CocoaPods dependencies for iOS
+      - name: Install CocoaPods dependencies
+        working-directory: apps/external-display-example/ios
+        run: |
           pod install
-          cd ..
-          xcodebuild -workspace ios/RNExternalDisplayExample.xcworkspace -scheme RNExternalDisplayExample -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build
+
+      # Build the iOS app using Xcode (Debug)
+      - name: Build iOS App (Debug)
+        working-directory: apps/external-display-example/ios
+        run: |
+          xcodebuild \
+            -workspace externaldisplayexample.xcworkspace \
+            -scheme externaldisplayexample \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -derivedDataPath build
 
   build-android:
     runs-on: ubuntu-latest
