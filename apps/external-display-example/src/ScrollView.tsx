@@ -40,7 +40,7 @@ export default function Example(props: Props) {
             >
               {new Array(100).fill(0).map((_, i) => (
                 <Text
-                  // eslint-disable-next-line react/no-array-index-key
+                   
                   key={`item-${i}`}
                   style={{
                     color: 'white',
