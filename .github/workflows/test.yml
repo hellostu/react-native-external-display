@@ -82,14 +82,14 @@ jobs:
       - name: Install xcpretty
         run: gem install xcpretty
 
-      # Build the iOS app using Xcode (with xcpretty)
-      - name: Build iOS App (Debug) with xcpretty
+      # Build the iOS app using Xcode (with xcpretty, Release)
+      - name: Build iOS App (Release) with xcpretty
         working-directory: apps/external-display-example/ios
         run: |
           set -o pipefail && xcodebuild \
             -workspace externaldisplayexample.xcworkspace \
             -scheme externaldisplayexample \
-            -configuration Debug \
+            -configuration Release \
             -sdk iphonesimulator \
             -derivedDataPath build | xcpretty
 
@@ -139,14 +139,14 @@ jobs:
       - name: Install xcpretty
         run: gem install xcpretty
 
-      # Build the iOS app using Xcode (with xcpretty)
-      - name: Build iOS App (Debug) with xcpretty
+      # Build the iOS app using Xcode (with xcpretty, Release)
+      - name: Build iOS App (Release) with xcpretty
         working-directory: apps/external-display-example/ios
         run: |
           set -o pipefail && xcodebuild \
             -workspace externaldisplayexample.xcworkspace \
             -scheme externaldisplayexample \
-            -configuration Debug \
+            -configuration Release \
             -sdk iphonesimulator \
             -derivedDataPath build | xcpretty
 
@@ -209,10 +209,10 @@ jobs:
         working-directory: apps/external-display-example
         run: echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxPermSize=1024m" >> android/gradle.properties
 
-      # Build the APK using Gradle (without running on a device)
+      # Build the APK using Gradle (Release)
       - name: Build Android APK
         working-directory: apps/external-display-example/android
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleRelease
 
   build-android-new-arch:
     runs-on: ubuntu-latest
@@ -267,7 +267,7 @@ jobs:
         working-directory: apps/external-display-example
         run: echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxPermSize=1024m" >> android/gradle.properties
 
-      # Build the APK using Gradle (without running on a device)
+      # Build the APK using Gradle (Release)
       - name: Build Android APK
         working-directory: apps/external-display-example/android
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleRelease
