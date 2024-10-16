@@ -30,8 +30,6 @@ jobs:
           yarn
           yarn lint
 
-          sed -i '' 's/"newArchEnabled": true/"newArchEnabled": false/g' path/to/your/file.json
-
   build-ios-old-arch:
     runs-on: macos-latest
     steps:
@@ -83,13 +81,6 @@ jobs:
       # Install xcpretty for better build output
       - name: Install xcpretty
         run: gem install xcpretty
-
-      # Cache Xcode derived data
-      - name: Cache Xcode Derived Data
-        uses: actions/cache@v4
-        with:
-          path: apps/external-display-example/ios/build
-          key: build-${{ github.sha }}
 
       # Build the iOS app using Xcode (with xcpretty)
       - name: Build iOS App (Debug) with xcpretty
@@ -148,13 +139,6 @@ jobs:
       - name: Install xcpretty
         run: gem install xcpretty
 
-      # Cache Xcode derived data
-      - name: Cache Xcode Derived Data
-        uses: actions/cache@v4
-        with:
-          path: apps/external-display-example/ios/build
-          key: build-${{ github.sha }}
-
       # Build the iOS app using Xcode (with xcpretty)
       - name: Build iOS App (Debug) with xcpretty
         working-directory: apps/external-display-example/ios
@@ -177,7 +161,7 @@ jobs:
       - name: Disable New Architecture in JSON
         working-directory: apps/external-display-example
         run: |
-          sed -i '' 's/"newArchEnabled": true/"newArchEnabled": false/g' app.json
+          sed -i 's/"newArchEnabled": true/"newArchEnabled": false/g' app.json
 
       # Set up Node.js
       - name: Set up Node.js
@@ -220,6 +204,10 @@ jobs:
       - name: Prebuild Android with Expo
         working-directory: apps/external-display-example
         run: yarn expo prebuild --platform android
+
+      - name: Set Gradle JVM options
+        working-directory: apps/external-display-example
+        run: echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxPermSize=1024m" >> android/gradle.properties
 
       # Build the APK using Gradle (without running on a device)
       - name: Build Android APK
@@ -274,6 +262,10 @@ jobs:
       - name: Prebuild Android with Expo
         working-directory: apps/external-display-example
         run: yarn expo prebuild --platform android
+
+      - name: Set Gradle JVM options
+        working-directory: apps/external-display-example
+        run: echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxPermSize=1024m" >> android/gradle.properties
 
       # Build the APK using Gradle (without running on a device)
       - name: Build Android APK
