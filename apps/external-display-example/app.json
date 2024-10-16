@@ -2,7 +2,6 @@
   "expo": {
     "name": "external-display-example",
     "slug": "external-display-example",
-    "entryPoint": "./src/App.tsx",
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "externaldisplay",
@@ -23,6 +22,19 @@
     },
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": true
+          },
+          "android": {
+            "newArchEnabled": true
+          }
+        }
+      ]
+    ]
   }
 }

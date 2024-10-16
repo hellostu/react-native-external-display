@@ -78,7 +78,7 @@ jobs:
             -scheme externaldisplayexample \
             -configuration Debug \
             -sdk iphonesimulator \
-            -derivedDataPath build | xcpretty --no-color
+            -derivedDataPath build | xcpretty
 
   build-android:
     runs-on: ubuntu-latest
